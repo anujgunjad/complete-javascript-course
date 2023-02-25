@@ -27,3 +27,12 @@ const restaurant = {
     },
   },
 };
+
+
+
+let [main, secondary] = restaurant.categories;
+
+//Switiching variables using Destructuring
+
+[main, secondary] = [secondary, main];
+console.log(main, secondary);
