@@ -33,11 +33,11 @@ function getCountryAndNeighbour(country) {
     request.send();
     
     request.addEventListener('load', function () {
-      const data = JSON.parse(this.responseText)[country === 'india' ? 1:0];
+      console.log(JSON.parse(this.responseText));
+      const data = JSON.parse(this.responseText)[country === 'india' ? 0:1];
       renderCountry(data);
-
-      let [neighbouringCountry] = data.borders;
-
+     
+      let [neighbouringCountry] = data?.borders;
       if(!neighbouringCountry) return;
       
       const request2 = new XMLHttpRequest();
@@ -46,10 +46,26 @@ function getCountryAndNeighbour(country) {
       
       request2.addEventListener('load', function () {
         const [data2] = JSON.parse(this.responseText);
-        console.log(data2);
         renderCountry(data2, 'neighbour');        
       })
     })
 }
 
 getCountryAndNeighbour('india');
+
+console.log("Test Start"); //First
+setTimeout(() => console.log('0 sec timer'), 0); //Forth
+Promise.resolve('Resolved Promise 1').then(res => console.log(res)); //Third => Micro Task queue
+console.log('Test End'); //Second
+
+
+//Lets Build our own promises...
+
+/**
+ * Promise took online one argument
+ */
+const lotteryPromise = new Promise(function(resolve, reject) {
+  if(Math.random() >= 0.5 ) {
+    
+  }
+})
